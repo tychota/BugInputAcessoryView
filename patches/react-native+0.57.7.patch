@@ -1,0 +1,28 @@
+patch-package
+--- a/node_modules/react-native/Libraries/Text/TextInput/RCTInputAccessoryView.m
++++ b/node_modules/react-native/Libraries/Text/TextInput/RCTInputAccessoryView.m
+@@ -50,6 +50,24 @@
+   }
+ }
+ 
++- (void)didMoveToWindow
++{
++  [super didMoveToWindow];
++  BOOL isVisible = self.superview && self.window;
++  if (isVisible) {
++    [self becomeFirstResponder];
++  }
++}
++
++- (void)willMoveToWindow:(UIWindow *)newWindow
++{
++  [super willMoveToWindow:newWindow];
++  // ???????
++  // BOOL willBeVisible = self.superview && newWindow;
++  
++  [self resignFirstResponder];
++}
++
+ - (void)insertReactSubview:(UIView *)subview atIndex:(NSInteger)index
+ {
+   [super insertReactSubview:subview atIndex:index];
